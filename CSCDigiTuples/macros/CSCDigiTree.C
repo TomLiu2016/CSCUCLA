@@ -47,8 +47,35 @@ void CSCDigiTree::Loop(string sName)
 
     plotter.book2D("nSeg_nLCT_h",";Number of Segments;Number of LCTs",10,-0.5,9.5,10,-0.5,9.5);
     plotter.book2D("nLCT_ntfLCT_h",";Number of LCTs;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
+    plotter.book2D("nLCT_ntfLCT_me11_h",";Number of LCTs_me11;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
+    plotter.book2D("nLCT_ntfLCT_me12_h",";Number of LCTs_me12;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
+    plotter.book2D("nLCT_ntfLCT_me13_h",";Number of LCTs_me13;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
+    plotter.book2D("nLCT_ntfLCT_me21_h",";Number of LCTs_me21;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
+    plotter.book2D("nLCT_ntfLCT_me22_h",";Number of LCTs_me22;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
+    plotter.book2D("nLCT_ntfLCT_me31_h",";Number of LCTs_me31;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
+    plotter.book2D("nLCT_ntfLCT_me32_h",";Number of LCTs_me32;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
+    plotter.book2D("nLCT_ntfLCT_me41_h",";Number of LCTs_me41;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
+    plotter.book2D("nLCT_ntfLCT_me42_h",";Number of LCTs_me42;Number of tfLCTs",10,-0.5,9.5,10,-0.5,9.5);
     plotter.book1D("nSegMinusNLCT_h",";Number of Segments - Number of LCTs",21,-10.5,10.5);
+    plotter.book1D("nSegMinusNLCT_me11_h",";Number of Segments - Number of LCTs_me11",21,-10.5,10.5);
+    plotter.book1D("nSegMinusNLCT_me12_h",";Number of Segments - Number of LCTs_me12",21,-10.5,10.5);
+    plotter.book1D("nSegMinusNLCT_me13_h",";Number of Segments - Number of LCTs_me13",21,-10.5,10.5);
+    plotter.book1D("nSegMinusNLCT_me21_h",";Number of Segments - Number of LCTs_me21",21,-10.5,10.5);
+    plotter.book1D("nSegMinusNLCT_me22_h",";Number of Segments - Number of LCTs_me22",21,-10.5,10.5);
+    plotter.book1D("nSegMinusNLCT_me31_h",";Number of Segments - Number of LCTs_me31",21,-10.5,10.5);
+    plotter.book1D("nSegMinusNLCT_me32_h",";Number of Segments - Number of LCTs_me32",21,-10.5,10.5);
+    plotter.book1D("nSegMinusNLCT_me41_h",";Number of Segments - Number of LCTs_me41",21,-10.5,10.5);
+    plotter.book1D("nSegMinusNLCT_me42_h",";Number of Segments - Number of LCTs_me42",21,-10.5,10.5);
     plotter.book1D("nLCTMinusNtfLCT_h",";Number of Segments;Number of LCTs",21,-10.5,10.5);
+    plotter.book1D("nLCTMinusNtfLCT_me11_h",";Number of Segments;Number of LCTs_me11",21,-10.5,10.5);
+    plotter.book1D("nLCTMinusNtfLCT_me12_h",";Number of Segments;Number of LCTs_me12",21,-10.5,10.5);
+    plotter.book1D("nLCTMinusNtfLCT_me13_h",";Number of Segments;Number of LCTs_me13",21,-10.5,10.5);
+    plotter.book1D("nLCTMinusNtfLCT_me21_h",";Number of Segments;Number of LCTs_me21",21,-10.5,10.5);
+    plotter.book1D("nLCTMinusNtfLCT_me22_h",";Number of Segments;Number of LCTs_me22",21,-10.5,10.5);
+    plotter.book1D("nLCTMinusNtfLCT_me31_h",";Number of Segments;Number of LCTs_me31",21,-10.5,10.5);
+    plotter.book1D("nLCTMinusNtfLCT_me32_h",";Number of Segments;Number of LCTs_me32",21,-10.5,10.5);
+    plotter.book1D("nLCTMinusNtfLCT_me41_h",";Number of Segments;Number of LCTs_me41",21,-10.5,10.5);
+    plotter.book1D("nLCTMinusNtfLCT_me42_h",";Number of Segments;Number of LCTs_me42",21,-10.5,10.5);
     plotter.book1D("nRHpSeg_h",";Number of Segments;Number of LCTs",7,-0.5,6.5);
     plotter.book1D("nLCTpSeg_h",";Number of Segments;Number of LCTs",7,-0.5,6.5);
     plotter.book1D("pt_seg_h","p_{T} of Muons for all segments",100,0.0,100.0);
@@ -986,7 +1013,22 @@ void CSCDigiTree::Loop(string sName)
 
                 plotter.get1D(Form("pt_pid%i_h",pid))->Fill(Pt);
             }//iseg
+            for(int iseg = 0; iseg < Nseg; iseg++)
+            {
+                int EC = segEc->at(iseg);
+                int ST = segSt->at(iseg);
+                int RI = segRi->at(iseg);
+                int CH = segCh->at(iseg);
             plotter.get2D("nLCT_ntfLCT_h")->Fill(Nlct,Ntflct);
+            if(ST==1 && RI==1) plotter.get2D("nLCT_ntfLCT_me11_h")->Fill(Nlct,Ntflct);
+            if(ST==1 && RI==2) plotter.get2D("nLCT_ntfLCT_me12_h")->Fill(Nlct,Ntflct);
+            if(ST==1 && RI==3) plotter.get2D("nLCT_ntfLCT_me13_h")->Fill(Nlct,Ntflct);
+            if(ST==2 && RI==1) plotter.get2D("nLCT_ntfLCT_me21_h")->Fill(Nlct,Ntflct);
+            if(ST==2 && RI==2) plotter.get2D("nLCT_ntfLCT_me22_h")->Fill(Nlct,Ntflct);
+            if(ST==3 && RI==1) plotter.get2D("nLCT_ntfLCT_me31_h")->Fill(Nlct,Ntflct);
+            if(ST==3 && RI==2) plotter.get2D("nLCT_ntfLCT_me32_h")->Fill(Nlct,Ntflct);
+            if(ST==4 && RI==1) plotter.get2D("nLCT_ntfLCT_me41_h")->Fill(Nlct,Ntflct);
+            if(ST==4 && RI==2) plotter.get2D("nLCT_ntfLCT_me42_h")->Fill(Nlct,Ntflct);
             if(Nlct != 0 && Nlct - Ntflct == 1) 
             { 
                 plotter.get1D("misstflctid_h")->Fill(missID); 
@@ -998,7 +1040,26 @@ void CSCDigiTree::Loop(string sName)
             if(Nlct == 0 && Ntflct > 0) { plotter.get1D("misslcts_phi_h")->Fill(phi); plotter.get1D("misslcts_eta_h")->Fill(eta); }
             plotter.get2D("nSeg_nLCT_h")->Fill(Nseg,Nlct);
             plotter.get1D("nSegMinusNLCT_h")->Fill(Nseg-Nlct);
+            if(ST==1 && RI==1) plotter.get1D("nSegMinusNLCT_me11_h")->Fill(Nseg-Nlct);
+            if(ST==1 && RI==2) plotter.get1D("nSegMinusNLCT_me12_h")->Fill(Nseg-Nlct);
+            if(ST==1 && RI==3) plotter.get1D("nSegMinusNLCT_me13_h")->Fill(Nseg-Nlct);
+            if(ST==2 && RI==1) plotter.get1D("nSegMinusNLCT_me21_h")->Fill(Nseg-Nlct);
+            if(ST==2 && RI==2) plotter.get1D("nSegMinusNLCT_me22_h")->Fill(Nseg-Nlct);
+            if(ST==3 && RI==1) plotter.get1D("nSegMinusNLCT_me31_h")->Fill(Nseg-Nlct);
+            if(ST==3 && RI==2) plotter.get1D("nSegMinusNLCT_me32_h")->Fill(Nseg-Nlct);
+            if(ST==4 && RI==1) plotter.get1D("nSegMinusNLCT_me41_h")->Fill(Nseg-Nlct);
+            if(ST==4 && RI==2) plotter.get1D("nSegMinusNLCT_me42_h")->Fill(Nseg-Nlct);
             plotter.get1D("nLCTMinusNtfLCT_h")->Fill(Nlct-Ntflct);
+            if(ST==1 && RI==1) plotter.get1D("nLCTMinusNtfLCT_me11_h")->Fill(Nlct-Ntflct);
+            if(ST==1 && RI==2) plotter.get1D("nLCTMinusNtfLCT_me12_h")->Fill(Nlct-Ntflct);
+            if(ST==1 && RI==3) plotter.get1D("nLCTMinusNtfLCT_me13_h")->Fill(Nlct-Ntflct);
+            if(ST==2 && RI==1) plotter.get1D("nLCTMinusNtfLCT_me21_h")->Fill(Nlct-Ntflct);
+            if(ST==2 && RI==2) plotter.get1D("nLCTMinusNtfLCT_me22_h")->Fill(Nlct-Ntflct);
+            if(ST==3 && RI==1) plotter.get1D("nLCTMinusNtfLCT_me31_h")->Fill(Nlct-Ntflct);
+            if(ST==3 && RI==2) plotter.get1D("nLCTMinusNtfLCT_me32_h")->Fill(Nlct-Ntflct);
+            if(ST==4 && RI==1) plotter.get1D("nLCTMinusNtfLCT_me41_h")->Fill(Nlct-Ntflct);
+            if(ST==4 && RI==2) plotter.get1D("nLCTMinusNtfLCT_me42_h")->Fill(Nlct-Ntflct);
+            }
         }//option if
     }
 
